@@ -32,6 +32,12 @@
             </select>
 
         </div>
+         <div class="form-group">
+
+             <label for="state">State:</label>
+             <input type="text" name="state" id="state" class="form-control" value="">
+
+         </div>
 
         <div class="form-group">
 
