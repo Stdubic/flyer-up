@@ -7,5 +7,10 @@
 
     <hr>
 
+    <form method="POST" action="/flyers" enctype="multipart/form-data">
+
+     @include('flyers.form')
+    <hr>
+    </form>
 
 @stop
