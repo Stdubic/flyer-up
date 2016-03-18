@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::resource('flyers', 'FlyersController');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +29,6 @@ Route::resource('flyers', 'FlyersController');
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    Route::resource('flyers', 'FlyersController');
 });
