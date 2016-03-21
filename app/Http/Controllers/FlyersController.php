@@ -17,13 +17,15 @@ class FlyersController extends Controller
      */
     public function create()
     {
+
         return view('flyers.create');
     }
 
     public function store(FlyerRequest $request)
     {
-
         Flyer::create($request->all());
+
+        flash()->success('Success!','Flyer successfully created!');
 
         return redirect()->back();
 

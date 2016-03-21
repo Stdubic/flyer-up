@@ -6,6 +6,7 @@
 
   <title>Flyer</title>
   <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/libs.css">
 
 </head>
 
@@ -39,6 +40,11 @@
     @yield('content')
 
     </div>
+
+
+<script src="/js/libs.js"></script>
+
+    @include('flash')
 
 </body>
 </html>
