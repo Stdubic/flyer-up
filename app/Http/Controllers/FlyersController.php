@@ -29,6 +29,14 @@ class FlyersController extends Controller
 
         return redirect()->back();
 
+    }
 
+    public function show($zip, $street)
+    {
+        $street = str_replace('-', ' ', $street);
+
+        $flyer = Flyer::where(compact('zip', 'street'))->first();
+
+        return view('flyers.show', compact('flyer'));
     }
 }
