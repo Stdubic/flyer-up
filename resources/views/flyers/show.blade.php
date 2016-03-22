@@ -50,7 +50,7 @@
 
             paramName: 'photo',
             maxFilesize: 5 ,
-            acceptedFiles: '.jpeg, .jpg, .png, '
+            acceptedFiles: '.jpeg, .jpg, .png '
 
         }
 
