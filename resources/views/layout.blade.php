@@ -7,6 +7,7 @@
   <title>Flyer</title>
   <link rel="stylesheet" href="/css/app.css">
   <link rel="stylesheet" href="/css/libs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.css">
 
 </head>
 
@@ -43,6 +44,8 @@
 
 
 <script src="/js/libs.js"></script>
+
+    @yield('scripts.footer')
 
     @include('flash')
 
