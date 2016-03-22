@@ -41,8 +41,14 @@ class FlyersController extends Controller
 
     public function addPhoto($zip, $street, Request $request)
     {
+        $this->validate($request, [
 
-        $file = $request->file('file');
+            'photo' => 'required|mimes:jpeg, jpg, png'
+        ]);
+
+        //refactore this
+
+        $file = $request->file('photo');
 
         $name = time() . $file->getClientOriginalName();
 

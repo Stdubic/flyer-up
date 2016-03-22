@@ -6,8 +6,6 @@
 
         <div class="col-lg-3">
 
-
-
             <h1>{{ $flyer->street }}</h1>
             <h2>${!! number_format($flyer->price) !!}</h2>
 
@@ -22,15 +20,18 @@
             @foreach( $flyer->photos as $photo )
             
                 <img src="/{{ $photo->photo_path }}" alt="">
-            
+
             @endforeach
-            
 
         <div>
 
     </div>
 
-    <form action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone">
+    <hr>
+
+    <h2>Add your photos:</h2>
+
+    <form id="addPhotosForm" action="/{{ $flyer->zip }}/{{ $flyer->street }}/photos" method="POST" class="dropzone">
 
     {{ csrf_field() }}
 
@@ -40,9 +41,19 @@
 
 @stop
 
-
 @section('scripts.footer')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
+    <script>
+
+        Dropzone.options.addPhotosForm = {
+
+            paramName: 'photo',
+            maxFilesize: 5 ,
+            acceptedFiles: '.jpeg, .jpg, .png, '
+
+        }
+
+    </script>
 
 @stop
