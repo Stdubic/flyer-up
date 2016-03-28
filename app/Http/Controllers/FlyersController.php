@@ -9,9 +9,19 @@ use App\Photo;
 
 use App\Http\Requests\FlyerRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\UploadedFile;
 
 class FlyersController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show']]);
+    }
 
 
     public function create()
@@ -45,12 +55,18 @@ class FlyersController extends Controller
         ]);
 
 
-        $photo = Photo::fromForm($request->file('photo'));
+
+        $photo = $this->makePhoto($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
 
         return 'done';
 
+    }
+    protected function makePhoto(UploadedFile $file)
+    {
+        return Photo::named($file->getClientOriginalName())
+            ->move($file);
     }
 }

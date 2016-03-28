@@ -4,7 +4,7 @@
 
     <div class="row">
 
-        <div class="col-lg-3">
+        <div class="col-lg-4">
 
             <h1>{{ $flyer->street }}</h1>
             <h2>${!! number_format($flyer->price) !!}</h2>
@@ -15,12 +15,19 @@
 
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-8 gallery">
 
-            @foreach( $flyer->photos as $photo )
-            
-                <img src="/{{ $photo->photo_path }}" alt="">
+            @foreach($flyer->photos->chunk(4) as $set)
 
+                <div class="row">
+
+                    @foreach($set as $photo)
+                        <div class="col-md-3 gallery-image">
+                            <img src="/{{ $photo->thumbnail_path }}" alt="">
+                        </div>
+
+                    @endforeach
+                </div>
             @endforeach
 
         <div>
