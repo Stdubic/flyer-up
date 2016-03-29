@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Flyer;
 use App\Photo;
+use App\User;
 
 use App\Http\Requests\FlyerRequest;
 use App\Http\Requests\AddPhotoRequest;
 use App\Http\Controllers\Controller;
+
 
 
 class FlyersController extends Controller
@@ -34,11 +36,16 @@ class FlyersController extends Controller
 
     public function store(FlyerRequest $request)
     {
-        Flyer::create($request->all());
+        //$flyer = Flyer::create($request->all());
+
+
+        $flyer = $this->user->publish(
+            new Flyer($request->all())
+        );
 
         flash()->success('Success!','Flyer successfully created!');
 
-        return redirect()->back();
+        return redirect(flyer_path($flyer));
 
     }
 
