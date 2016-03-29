@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Flyer;
 use App\Photo;
 
-
 use App\Http\Requests\FlyerRequest;
+use App\Http\Requests\ChangeFlyerRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
 
@@ -47,23 +47,30 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
-    public function addPhoto($zip, $street, Request $request)
+    public function addPhoto($zip, $street, ChangeFlyerRequest $request)
     {
-        $this->validate($request, [
-
-            'photo' => 'required|mimes:jpeg, jpg, png'
-        ]);
-
-
 
         $photo = $this->makePhoto($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
 
-        return 'done';
+    }
+    protected function userCreatedFlyer(Request $request)
+    {
 
     }
+    protected function unauthorized(Request $request)
+    {
+        if($request->ajax()){
+
+            return response(['message' => 'No Way'], 403);
+        }
+        flash('No Way');
+        return redirect('/');
+    }
+
+
     protected function makePhoto(UploadedFile $file)
     {
         return Photo::named($file->getClientOriginalName())
