@@ -7,9 +7,9 @@ use App\Flyer;
 use App\Photo;
 
 use App\Http\Requests\FlyerRequest;
-use App\Http\Requests\ChangeFlyerRequest;
+use App\Http\Requests\AddPhotoRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\UploadedFile;
+
 
 class FlyersController extends Controller
 {
@@ -21,6 +21,8 @@ class FlyersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['show']]);
+
+        parent::__construct();
     }
 
 
@@ -47,10 +49,9 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
-    public function addPhoto($zip, $street, ChangeFlyerRequest $request)
+    public function addPhoto($zip, $street, AddPhotoRequest $request)
     {
-
-        $photo = $this->makePhoto($request->file('photo'));
+        $photo = Photo::fromFile($request->file('photo'));
 
         Flyer::locatedAt($zip, $street)->addPhoto($photo);
 
@@ -71,9 +72,9 @@ class FlyersController extends Controller
     }
 
 
-    protected function makePhoto(UploadedFile $file)
-    {
-        return Photo::named($file->getClientOriginalName())
-            ->move($file);
-    }
+//    protected function makePhoto(UploadedFile $file)
+//    {
+//        return Photo::named($file->getClientOriginalName())
+//            ->move($file);
+//    }
 }
