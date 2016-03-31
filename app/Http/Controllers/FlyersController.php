@@ -56,14 +56,7 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
-    public function addPhoto($zip, $street, AddPhotoRequest $request)
-    {
-        $photo = Photo::fromFile($request->file('photo'));
 
-        Flyer::locatedAt($zip, $street)->addPhoto($photo);
-
-
-    }
     protected function userCreatedFlyer(Request $request)
     {
 
@@ -79,9 +72,5 @@ class FlyersController extends Controller
     }
 
 
-//    protected function makePhoto(UploadedFile $file)
-//    {
-//        return Photo::named($file->getClientOriginalName())
-//            ->move($file);
-//    }
+
 }
