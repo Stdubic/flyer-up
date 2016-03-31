@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\AddPhotoToFlyer;
 use App\Http\Requests;
 use App\Flyer;
+use App\Photo;
 
 
 use App\Http\Requests\AddPhotoRequest;
@@ -21,5 +22,12 @@ class PhotosController extends Controller
 
         (new AddPhotoToFlyer($flyer, $photo))->save();
 
+    }
+    public function destroy($id)
+    {
+        $photo = Photo::findOrFail($id);
+        $photo->delete();
+
+        return back();
     }
 }

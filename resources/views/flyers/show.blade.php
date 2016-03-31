@@ -23,7 +23,17 @@
 
                     @foreach($set as $photo)
                         <div class="col-md-3 gallery-image">
-                            <img src="/{{ $photo->thumbnail_path }}" alt="">
+
+                            <form method="POST" action="/photos/{{$photo->id}}">
+                            {!! csrf_field() !!}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Delete</button>
+
+                            </form>
+
+                            <a href="/{{ $photo->path }}">
+                             <img src="/{{ $photo->thumbnail_path }}" alt="">
+                            </a>
                         </div>
 
                     @endforeach
