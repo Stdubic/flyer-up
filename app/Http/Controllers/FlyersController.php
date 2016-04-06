@@ -15,11 +15,8 @@ use App\Http\Controllers\Controller;
 
 class FlyersController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
+
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['show']]);
@@ -27,17 +24,26 @@ class FlyersController extends Controller
         parent::__construct();
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
 
         return view('flyers.create');
     }
 
+    /**
+     * Store a newly created flyer
+     *
+     * @param FlyerRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(FlyerRequest $request)
     {
-        //$flyer = Flyer::create($request->all());
-
 
         $flyer = $this->user->publish(
             new Flyer($request->all())
@@ -49,6 +55,14 @@ class FlyersController extends Controller
 
     }
 
+    /**
+     * Show flyer.
+     *
+     * @param $zip
+     * @param $street
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($zip, $street)
     {
         $flyer = Flyer::locatedAt($zip, $street);
@@ -56,11 +70,13 @@ class FlyersController extends Controller
         return view('flyers.show', compact('flyer'));
     }
 
-
-    protected function userCreatedFlyer(Request $request)
-    {
-
-    }
+    /**
+     * Validation the ajax request.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Symfony\Component\HttpFoundation\Response
+     */
     protected function unauthorized(Request $request)
     {
         if($request->ajax()){

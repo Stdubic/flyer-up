@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Flyer extends Model
 {
 
+    /**
+     * Fillable filelds.
+     * @var array
+     */
     protected $fillable = [
         'street',
         'city',
@@ -25,6 +29,13 @@ class Flyer extends Model
         return static::where(compact('zip', 'street'))->firstOrFail();
     }
 
+    /**
+     * Add phpto to the flyer.
+     *
+     * @param Photo $photo
+     *
+     * @return Model
+     */
     public function addPhoto(Photo $photo)
     {
 
@@ -32,16 +43,33 @@ class Flyer extends Model
 
     }
 
+    /**
+     * Flyer is composed of many photos.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function photos()
     {
         return $this->hasMany('App\Photo');
     }
 
+    /**
+     * A flyer is owned by user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    /**
+     * Determine if the given user created the flyer.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
     public function ownedBy(User $user)
     {
         return $this->user_id == $user->id;
